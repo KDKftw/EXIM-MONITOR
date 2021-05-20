@@ -3,9 +3,7 @@ from FUNCTIONS import *
 
 
 def test_SearchDetail():
-    wait = WebDriverWait(driver, 25)
     driver.get(URL)
-
     driver.maximize_window()
     try:
         lmZajezdNej = driver.find_element_by_xpath(
@@ -14,7 +12,8 @@ def test_SearchDetail():
         ##lmZajezdNej.click()
         driver.execute_script("arguments[0].click();", lmZajezdNej)  ####.click nefunguje na fischer NNN LM/FM, chrome
     except NoSuchElementException:
-        msg = " Problem HP-Nej. nabidka - nenasel se LM zajezd"
+        url = driver.current_url
+        msg = " Problem HP-Nej. nabidka - nenasel se LM zajezd " + url
         sendEmail(msg)
 
 
@@ -31,10 +30,12 @@ def test_SearchDetail():
                     pass
 
                 else:
-                    msg = " Problem s hotely v searchi - hotelCard "
+                    url = driver.current_url
+                    msg = " Problem s hotely v searchi - hotelCard " + url
                     sendEmail(msg)
     except NoSuchElementException:
-        msg = "Problem s hotely v searchi - hotelCard "
+        url = driver.current_url
+        msg = "Problem s hotely v searchi - hotelCard " + url
         sendEmail(msg)
 
 
@@ -48,11 +49,13 @@ def test_SearchDetail():
                 if jdouvidet == True:
                     pass
                 else:
-                    msg = " Problem s fotkami hotelu v searchi "
+                    url = driver.current_url
+                    msg = " Problem s fotkami hotelu v searchi " + url
                     sendEmail(msg)
 
     except NoSuchElementException:
-        msg = " Problem s fotkami hotelu v searchi "
+        url = driver.current_url
+        msg = " Problem s fotkami hotelu v searchi " + url
         sendEmail(msg)
 
 
@@ -66,12 +69,14 @@ def test_SearchDetail():
                 if jdouvidet == True:
                     pass
                 else:
-                    msg = " Problem s cenami hotelu v searchi "
+                    url = driver.current_url
+                    msg = " Problem s cenami hotelu v searchi " + url
                     sendEmail(msg)
 
 
     except NoSuchElementException:
-        msg = "Problem s cenami hotelu v searchi "
+        url = driver.current_url
+        msg = "Problem s cenami hotelu v searchi " + url
         sendEmail(msg)
 
 
@@ -82,7 +87,8 @@ def test_SearchDetail():
 
 
     except NoSuchElementException:
-        msg = "Neprokliknuti na detail hotelu ze searche "
+        url = driver.current_url
+        msg = "Neprokliknuti na detail hotelu ze searche " +url
         sendEmail(msg)
 
 
@@ -95,7 +101,8 @@ def test_SearchDetail():
         if detailFotka.is_displayed():
             pass
     except NoSuchElementException:
-        msg = "Problem s fotkami na detailu hotelu "
+        url = driver.current_url
+        msg = "Problem s fotkami na detailu hotelu " +url
         sendEmail(msg)
 
 
@@ -107,7 +114,8 @@ def test_SearchDetail():
 
 
     except NoSuchElementException:
-        msg = "Problem se sedivkou na detailu hotelu "
+        url = driver.current_url
+        msg = "Problem se sedivkou na detailu hotelu " + url
         sendEmail(msg)
 
     try:
@@ -118,7 +126,8 @@ def test_SearchDetail():
             "//*[@class='fshr-button fshr-button--commonImportance fshr-button--big js-popupWindow--close']")
         driver.execute_script("arguments[0].click();", potvrdit)
     except NoSuchElementException:
-        msg = "Problem prepnuti na terminy a ceny na detailu hotelu "
+        url = driver.current_url
+        msg = "Problem prepnuti na terminy a ceny na detailu hotelu " +url
         sendEmail(msg)
 
     try:
@@ -128,12 +137,14 @@ def test_SearchDetail():
         if terminySingle.is_displayed():
             pass
         else:
-            msg = "Problem s terminy a ceny na detailu hotelu "
+            url = driver.current_url
+            msg = "Problem s terminy a ceny na detailu hotelu " +url
             sendEmail(msg)
 
 
     except NoSuchElementException:
-        msg = "Problem s terminy a ceny na detailu hotelu "
+        url = driver.current_url
+        msg = "Problem s terminy a ceny na detailu hotelu " +url
         sendEmail(msg)
 
     driver.quit()
@@ -151,11 +162,13 @@ def test_SDO():
                         pass
 
                     else:
-                        msg = "Nenasli se destinace v /stat "
+                        url = driver.current_url
+                        msg = "Nenasli se destinace v /stat " +url
                         sendEmail(msg)
 
         except NoSuchElementException:
-            msg = "Nenasli se destinace v /stat "
+            url = driver.current_url
+            msg = "Nenasli se destinace v /stat " +url
             sendEmail(msg)
 
 
@@ -169,11 +182,13 @@ def test_SDO():
                         pass
 
                     else:
-                        msg = "Nenasli se fotky v dlazdicich v /stat "
+                        url = driver.current_url
+                        msg = "Nenasli se fotky v dlazdicich v /stat " + url
                         sendEmail(msg)
 
         except NoSuchElementException:
-            msg = "Nenasli se fotky v dlazdicich v /stat "
+            url = driver.current_url
+            msg = "Nenasli se fotky v dlazdicich v /stat " +url
             sendEmail(msg)
 
 
@@ -182,11 +197,13 @@ def test_SDO():
             if mapa.is_displayed():
                 pass
             else:
-                msg = "Nenasli se mapa v /stat "
+                url = driver.current_url
+                msg = "Nenasli se mapa v /stat " +url
                 sendEmail(msg)
 
         except NoSuchElementException:
-            msg = "Nenasli se mapa v /stat "
+            url = driver.current_url
+            msg = "Nenasli se mapa v /stat " +url
             sendEmail(msg)
 
 def test_LM():
@@ -194,6 +211,7 @@ def test_LM():
         try:
             zajezdyLMsingle = driver.find_element_by_xpath("//*[@class='page-tour']")
             zajezdyLMall = driver.find_elements_by_xpath("//*[@class='page-tour']")
+            wait.until(EC.visibility_of(zajezdyLMsingle))
             if zajezdyLMsingle.is_displayed():
                 for WebElement in zajezdyLMall:
                     jdouvidet = WebElement.is_displayed()
@@ -201,12 +219,14 @@ def test_LM():
                         pass
 
                     else:
-                        msg = "Problem s LM  zajezdy se neukazuji "
+                        url = driver.current_url
+                        msg = "Problem s LM  zajezdy se neukazuji " + url
                         sendEmail(msg)
 
 
         except NoSuchElementException:
-            msg = "Problem s LM  zajezdy se neukazuji "
+            url = driver.current_url
+            msg = "Problem s LM  zajezdy se neukazuji " +url
             sendEmail(msg)
         try:
             rozbal = driver.find_element_by_xpath("//*[@class='page-tour-cell page-tour-control']")
@@ -214,7 +234,8 @@ def test_LM():
             time.sleep(2)
 
         except NoSuchElementException:
-            msg = " Nepodarilo se rozbalit LM zajezd "
+            url = driver.current_url
+            msg = " Nepodarilo se rozbalit LM zajezd " + url
             sendEmail(msg)
 
         try:
@@ -227,7 +248,8 @@ def test_LM():
                     if jdouvidet == True:
                         pass
         except NoSuchElementException:
-            msg = "Nenasel se zadny zajezd pri rozbaleni zajezdu v last minute "
+            url = driver.current_url
+            msg = "Nenasel se zadny zajezd pri rozbaleni zajezdu v last minute " + url
             sendEmail(msg)
 
 def test_HomePage():
@@ -242,12 +264,14 @@ def test_HomePage():
                     if jdouvidet == True:
                         pass
                     else:
-                        msg = "Problem na HP s bannery "
+                        url = driver.current_url
+                        msg = "Problem na HP s bannery " + url
                         sendEmail(msg)
 
 
         except NoSuchElementException:
-            msg = "Problem na HP s bannery"
+            url = driver.current_url
+            msg = "Problem na HP s bannery " + url
             sendEmail(msg)
 
 
@@ -264,13 +288,15 @@ def test_HomePage():
                     if jdouvidet == True:
                         pass
                     else:
-                        msg = "Problem na HP s nej. nabidky LM"
+                        url = driver.current_url
+                        msg = "Problem na HP s nej. nabidky LM " + url
                         sendEmail(msg)
 
 
 
         except NoSuchElementException:
-            msg = "Problem na HP s nej. nabidky LM"
+            url = driver.current_url
+            msg = "Problem na HP s nej. nabidky LM " + url
             sendEmail(msg)
 
 
@@ -280,7 +306,8 @@ def test_HomePage():
             time.sleep(2.5)
 
         except NoSuchElementException:
-            msg = "Problem s HP - switch button u nej. nabidky"
+            url = driver.current_url
+            msg = "Problem s HP - switch button u nej. nabidky " + url
             sendEmail(msg)
 
 
@@ -288,6 +315,7 @@ def test_HomePage():
         try:
             nejnabidkyFMsingle = driver.find_element_by_xpath("//*[@class='f_tourTable-tour']")
             nejnabidkyFMall = driver.find_elements_by_xpath("//*[@class='f_tourTable-tour']")
+            wait.until(EC.visibility_of(nejnabidkyFMsingle))
             if nejnabidkyFMsingle.is_displayed():
 
                 for WebElement in nejnabidkyFMall:
@@ -295,12 +323,14 @@ def test_HomePage():
                     if jdouvidet == True:
                         pass
                     else:
-                        msg = "Problem na HP s nej. nabidky FM"
+                        url = driver.current_url
+                        msg = "Problem na HP s nej. nabidky FM " + url
                         sendEmail(msg)
 
 
         except NoSuchElementException:
-            msg = "Problem na HP s nej. nabidky FM"
+            url = driver.current_url
+            msg = "Problem na HP s nej. nabidky FM " +url
             sendEmail(msg)
 
 
@@ -310,18 +340,21 @@ def test_HomePage():
         try:
             topnabidkaSingle = driver.find_element_by_xpath("//*[@class='f_tile-image-content']")
             topnabidkaAll = driver.find_elements_by_xpath("//*[@class='f_tile-image-content']")
+            wait.until(EC.visibility_of(topnabidkaSingle))
             if topnabidkaSingle.is_displayed():
                 for WebElement in topnabidkaAll:
                     jdouvidet = WebElement.is_displayed()
                     if jdouvidet == True:
                         pass
                     else:
-                        msg = "Problem na HP - top nabidka"
+                        url = driver.current_url
+                        msg = "Problem na HP - top nabidka " +url
                         sendEmail(msg)
 
 
         except NoSuchElementException:
-            msg = "Problem na HP - top nabidka"
+            url = driver.current_url
+            msg = "Problem na HP - top nabidka " +url
             sendEmail(msg)
 
 def test_FM():
@@ -330,6 +363,7 @@ def test_FM():
         try:
             zajezdyFMsingle = driver.find_element_by_xpath("//*[@class='page-tour']")
             zajezdyFMall = driver.find_elements_by_xpath("//*[@class='page-tour']")
+            wait.until(EC.visibility_of(zajezdyFMsingle))
             if zajezdyFMsingle.is_displayed():
                 for WebElement in zajezdyFMall:
                     jdouvidet = WebElement.is_displayed()

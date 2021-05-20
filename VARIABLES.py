@@ -14,7 +14,7 @@ URL_stat = URL+"/recko"
 driver = webdriver.Chrome(executable_path=r"C:\Users\KDK\Desktop\Selenium setup\chromedriver90.exe")
 ##driver = webdriver.Chrome(executable_path=r"C:\Users\KADOUN\Desktop\Selenium setup\chromedriver89.exe") ##cesta na office PC
 
-wait = WebDriverWait(driver, 40)
+wait = WebDriverWait(driver, 150000)
 
 ##driverChrome = webdriver.Chrome(executable_path=r"C:\Users\KDK\Desktop\Selenium Setup\chromedriver89.exe")
 ##driverIE = webdriver.Ie(executable_path=r"C:\Users\KDK\Desktop\IEdriver\IEDriverServer.exe")
